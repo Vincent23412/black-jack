@@ -1,0 +1,67 @@
+# depslib dependency file v1.0
+1709473410 source:c:\users\asd11\desktop\計算機程式設計\oop\0229\poker.cpp
+	"poker.h"
+	<iostream>
+	<string>
+	<vector>
+
+1709472822 c:\users\asd11\desktop\計算機程式設計\oop\0229\poker.h
+	<vector>
+	<iostream>
+
+1709473419 source:c:\users\asd11\desktop\計算機程式設計\oop\0229\project_1\main.cpp
+	<iostream>
+	<vector>
+	"../poker.h"
+
+1709473410 source:c:\users\asd11\desktop\計算機程式設計\oop\0229\project_1\poker.cpp
+	"poker.h"
+	<iostream>
+	<string>
+	<vector>
+
+1709472822 c:\users\asd11\desktop\計算機程式設計\oop\0229\project_1\poker.h
+	<vector>
+	<iostream>
+
+1711289870 source:c:\users\asd11\desktop\計算機程式設計\oop\project_1\main.cpp
+	<iostream>
+	<vector>
+	"poker.h"
+	"Player.h"
+	"Game.h"
+
+1711348123 c:\users\asd11\desktop\計算機程式設計\oop\project_1\poker.h
+	<vector>
+	<iostream>
+
+1711359516 source:c:\users\asd11\desktop\計算機程式設計\oop\project_1\player.cpp
+	"Player.h"
+	<string>
+	<iostream>
+
+1711357547 c:\users\asd11\desktop\計算機程式設計\oop\project_1\player.h
+	<string>
+	<vector>
+	"poker.h"
+
+1711466723 source:c:\users\asd11\desktop\計算機程式設計\oop\project_1\game.cpp
+	"Game.h"
+	"Player.h"
+	"poker.h"
+	<vector>
+	<cstdlib>
+	<ctime>
+	<random>
+	<iostream>
+
+1711465796 c:\users\asd11\desktop\計算機程式設計\oop\project_1\game.h
+	<vector>
+	"Player.h"
+
+1711289708 source:c:\users\asd11\desktop\計算機程式設計\oop\project_1\poker.cpp
+	"poker.h"
+	<iostream>
+	<string>
+	<vector>
+
