@@ -65,3 +65,44 @@
 	<string>
 	<vector>
 
+1711289870 source:c:\users\asd11\desktop\計算機程式設計\oop\black_jack\main.cpp
+	<iostream>
+	<vector>
+	"poker.h"
+	"Player.h"
+	"Game.h"
+
+1711348123 c:\users\asd11\desktop\計算機程式設計\oop\black_jack\poker.h
+	<vector>
+	<iostream>
+
+1711625604 c:\users\asd11\desktop\計算機程式設計\oop\black_jack\player.h
+	<string>
+	<vector>
+	"poker.h"
+
+1711627862 c:\users\asd11\desktop\計算機程式設計\oop\black_jack\game.h
+	<vector>
+	"Player.h"
+
+1711625604 source:c:\users\asd11\desktop\計算機程式設計\oop\black_jack\player.cpp
+	"Player.h"
+	<string>
+	<iostream>
+
+1711289708 source:c:\users\asd11\desktop\計算機程式設計\oop\black_jack\poker.cpp
+	"poker.h"
+	<iostream>
+	<string>
+	<vector>
+
+1711693544 source:c:\users\asd11\desktop\計算機程式設計\oop\black_jack\game.cpp
+	"Game.h"
+	"Player.h"
+	"poker.h"
+	<vector>
+	<cstdlib>
+	<ctime>
+	<random>
+	<iostream>
+

@@ -12,6 +12,7 @@ private:
     std::vector<Player*> playerList;
     std::vector<bool> stillPlayingList;
     int winner;
+    bool bankerAce;
 public:
     Game(int, int);
     void setPlayer(int);
@@ -26,6 +27,8 @@ public:
     void printAllCard();
     void showWinner();
     void resetGame();
+    bool checkStraight(int);
+    void finalWinner();
 };
 
 

@@ -7,6 +7,7 @@ Player::Player(string name, int money){
     this->bet = 500;
     this->cardNum = 0;
     this->point = 0;
+    this->insurance = 0;
     setName(name);
     setMoney(money);
 }

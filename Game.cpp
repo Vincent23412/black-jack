@@ -13,6 +13,7 @@ Game::Game(int playerNum, int round){
     setPlayer(playerNum);
     setRound(round);
     this->bet = 500;
+    this->bankerAce = false;
     srand(time(0));
     int randomNum = rand();
     this->banker = randomNum % this->playerNum;
@@ -63,7 +64,9 @@ void Game::setPlayerBet(){
         }
     }
     for (int i = 0 ; i < this->playerNum; i++){
-        cout << (this->playerList)[i]->name << "'s bet is " << (this->playerList)[i]->bet << endl;
+        if (i != this->banker){
+            cout << (this->playerList)[i]->name << "'s bet is " << (this->playerList)[i]->bet << endl;
+        }
     }
 }
 
@@ -90,6 +93,20 @@ void Game::sendCard(){
         if (randomNum == 10 || randomNum == 11 || randomNum == 12){
             randomNum = 9;
         }
+
+        if (randomNum == 0){
+            int random = rand() % 2;
+            if (random == 1){
+                randomNum = 9;
+                cout << "we suggest your A should be 10 point" << endl;
+            }
+            else{
+                randomNum = 1;
+                cout << "we suggest your A should be 1 point" << endl;
+            }
+        }
+
+
         this->playerList[i]->point += randomNum + 1;
     }
     int askInsurance = 0;
@@ -117,11 +134,14 @@ void Game::sendCard(){
     }
     if (askInsurance && (this->playerList)[this->banker]->cardNum == 2){
         askForInsurance(this->banker);
+        this->bankerAce = true;
     }
 }
 
 void Game::sendOneCard(int i){
     //cout << (this->playerList)[i]->name << endl;
+
+
     int randomNum = rand() % 13;
     char cardNum = changeNum(randomNum);
     //cout << randomNum << ':' << cardNum << endl;
@@ -129,10 +149,25 @@ void Game::sendOneCard(int i){
     poker *card = new poker(cardNum);
     card->printCard();
     (this->playerList)[i]->cardList.push_back(card);
+
     this->playerList[i]->cardNum++;
     if (randomNum == 10 || randomNum == 11 || randomNum == 12){
         randomNum = 9;
     }
+
+    if (randomNum == 0){
+        int random = rand() % 2;
+        if (random == 1){
+            randomNum = 9;
+            cout << "we suggest your A should be 10 point" << endl;
+        }
+        else{
+            randomNum = 1;
+            cout << "we suggest your A should be 1 point" << endl;
+        }
+    }
+
+
     this->playerList[i]->point += randomNum + 1;
     cout << "you're now " << this->playerList[i]->point << " points" << endl;
 }
@@ -178,7 +213,7 @@ void Game::askForInsurance(int bankId){
         if (i == bankId){
             continue;
         }
-        cout << this->playerList[i]->name << ", do you want to buy insurance?" << endl;
+        cout << this->playerList[i]->name << ", do you want to buy insurance?(Type 0 for not)" << endl;
         int want = 0;
         cin >> want;
         this->playerList[i]->insurance = want;
@@ -198,6 +233,7 @@ void Game::doubleOrSurrender(){
             }
             else if (ask == 2){
                 this->playerList[i]->money -= this->playerList[i]->bet;
+                this->playerList[this->banker]->money += this->playerList[i]->bet;
                 cout << this->playerList[i]->name << ", you lose, you now have " << this->playerList[i]->money << endl;
                 this->stillPlayingList[i] = false;
             }
@@ -208,10 +244,44 @@ void Game::doubleOrSurrender(){
     }
 }
 
+bool Game::checkStraight(int i){
+    int six = 0, seven = 0, eight = 0;
+    for (int i = 0 ; i < this->playerList[i]->cardNum; i++){
+        if (this->playerList[i]->cardList[i]->value == 6){
+            six++;
+        }
+        if (this->playerList[i]->cardList[i]->value == 7){
+            seven++;
+        }
+        if (this->playerList[i]->cardList[i]->value == 8){
+            eight++;
+        }
+    }
+    if (six > 0 && seven > 0 && eight > 0){
+        cout << "you got a straight" << endl;
+        return true;
+    }
+    return false;
+}
+
 void Game::showWinner(){
     int maxPlayer = 0;
     int maxPoint = 0;
     for (int i = 0; i < this->playerNum; i++){
+        if (checkStraight(i)){
+            maxPlayer = i;
+            maxPoint = this->playerList[i]->point;
+            this->playerList[i]->money += 3 * this->playerList[i]->bet;
+            this->playerList[this->banker]->money -= 3 * this->playerList[i]->bet;
+            this->stillPlayingList[i] = 0;
+            break;
+        }
+        if (this->playerList[i]->cardNum == 5 && this->stillPlayingList[i]){
+            this->playerList[i]->money += 3 * this->playerList[i]->bet;
+            this->playerList[this->banker]->money -= 3 * this->playerList[i]->bet;
+            this->stillPlayingList[i] = 0;
+        }
+
         if (this->playerList[i]->point > maxPoint && this->stillPlayingList[i]){
             maxPlayer = i;
             maxPoint = this->playerList[i]->point;
@@ -226,6 +296,17 @@ void Game::showWinner(){
             if (i != this->banker){
                 cout << this->playerList[i]->bet << endl;
                 this->playerList[this->banker]->money += this->playerList[i]->bet;
+                if (this->bankerAce && this->playerList[i]->insurance != 0){
+                    if (this->playerList[this->banker]->point == 21){
+                        this->playerList[i]->money += this->playerList[i]->insurance * 2;
+                        this->playerList[this->banker]->money -= this->playerList[i]->insurance * 2;
+                    }
+                    else{
+                        this->playerList[i]->money -= this->playerList[i]->insurance;
+                        this->playerList[this->banker]->money += this->playerList[i]->insurance ;
+                    }
+                }
+
                 if (this->stillPlayingList[i]){
                     this->playerList[i]->money -= this->playerList[i]->bet;
                 }
@@ -252,7 +333,7 @@ void Game::showWinner(){
 void Game::resetGame(){
     this->banker = this->winner;
     this->winner = -1;
-
+    this->bankerAce = false;
     for (int i = 0 ; i < this->playerNum; i++){
         this->playerList[i]->cardList.clear();
         this->playerList[i]->bet = 0;
@@ -263,28 +344,63 @@ void Game::resetGame(){
 }
 
 
+void Game::finalWinner(){
+    cout << endl;
+    cout << "end of the game" << endl;
+
+    for (int i = this->playerNum - 1; i > 0; i--){
+        for (int j = 0; j < i; j++){
+            //cout << this->playerList[j]->money << ", " << this->playerList[j+1]->money << endl;
+            if (this->playerList[j]->money < this->playerList[j+1]->money){
+                Player *temp = this->playerList[j];
+                this->playerList[j] = this->playerList[j+1];
+                this->playerList[j+1] = temp;
+            }
+        }
+    }
+    cout << "final winner" << endl;
+    for (int i = 0 ; i < this->playerNum; i++){
+        cout << "The " << i + 1  << " price is "<< this->playerList[i]->name << " the point is " << this->playerList[i]->money << endl;
+    }
+}
+
+
 void Game::playGame(){
     for (int i = 0 ; i < this->round; i++){
         cout << endl;
         cout << "round " << i + 1 << endl;
         cout << endl;
         printPlayerInfo();
+        cout << endl;
         setPlayerBet();
+        cout << endl;
         sendCard();
         sendCard();
         doubleOrSurrender();
 
         for (int i = 0 ; i < this->playerNum; i++){
             if (i != this->banker && this->stillPlayingList[i]){
+                bool doubleChance = false;
                 cout << this->playerList[i]->name << " your point is " << this->playerList[i]->point <<", do you want to add a card?";
                 int addCard = 1;
                 cin >> addCard;
+                if (this->playerList[i]->point == 11){
+                    cout << "You are 11 point now, you have a chance to double your bet, but you can only get one more card" << endl;
+                    cin >> doubleChance;
+                    if (doubleChance){
+                        this->playerList[i]->bet *= 2;
+                        cout << "your bet is now " << this->playerList[i]->bet << endl;
+                    }
+                }
                 while (addCard){
                     if (addCard){
                         sendOneCard(i);
                         if (this->playerList[i]->point> 21){
                             cout << "Bomb" << endl;
                             this->stillPlayingList[i] = false;
+                            break;
+                        }
+                        if (doubleChance){
                             break;
                         }
 
@@ -328,7 +444,10 @@ void Game::playGame(){
             }
         }
         printAllCard();
-        showWinner();
+        if (round != this->round){
+            showWinner();
+        }
         resetGame();
     }
+    finalWinner();
 }
