@@ -37,4 +37,8 @@ To compile and run the game, ensure you have a C++ compiler installed. Navigate 
 g++ -o blackjack Game.cpp Poker.cpp Player.cpp main.cpp
 ./blackjack
 
+Replace g++ with your compiler's command if you're using a different C++ compiler.
+
+Contributing
+Contributions to this Black Jack game are welcome! Whether it's adding new features, improving the game logic, or fixing bugs, feel free to fork this repository, make your changes, and submit a pull request.
 
