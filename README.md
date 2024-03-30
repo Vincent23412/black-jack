@@ -20,14 +20,14 @@ The game follows the standard rules of Black Jack. It begins by dealing two card
 
 Below are screenshots demonstrating the game in action. They provide a glimpse into the user interface and game dynamics.
 
-![image](https://github.com/Vincent23412/black-jack/assets/87458133/17b687ce-2823-499a-8f84-f3751371a2ff)
-*Fig 1: Starting the game.*
-
+![image](https://github.com/Vincent23412/black-jack/assets/87458133/17b687ce-2823-499a-8f84-f3751371a2ff)  
+*Fig 1: Starting the game.*  
+ 
 ![image](https://github.com/Vincent23412/black-jack/assets/87458133/9d1b5e79-4abe-4165-84e4-ed9fe0ca09bf)
-*Fig 2: Player making a decision.*
+*Fig 2: Player making a decision.*  
 
 ![image](https://github.com/Vincent23412/black-jack/assets/87458133/fe723c85-f9ad-4877-b747-3fa245869132)
-*Fig 3: End of a round showing the outcome.*
+*Fig 3: End of a round showing the outcome.*  
 
 ## How to Run
 
