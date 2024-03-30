@@ -36,6 +36,8 @@ To compile and run the game, ensure you have a C++ compiler installed. Navigate 
 ```bash
 g++ -o blackjack Game.cpp Poker.cpp Player.cpp main.cpp
 ./blackjack
+```  
+
 
 Replace g++ with your compiler's command if you're using a different C++ compiler.
 
