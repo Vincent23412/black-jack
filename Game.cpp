@@ -267,7 +267,9 @@ bool Game::checkStraight(int i){
 void Game::showWinner(){
     int maxPlayer = 0;
     int maxPoint = 0;
+    cout << "showWinner" << endl;;
     for (int i = 0; i < this->playerNum; i++){
+        cout << "showWinner2" << endl;
         if (checkStraight(i)){
             maxPlayer = i;
             maxPoint = this->playerList[i]->point;
@@ -287,6 +289,7 @@ void Game::showWinner(){
             maxPoint = this->playerList[i]->point;
         }
     }
+    cout << "showWinner3" << endl;;
     cout << endl;
     cout << "winner is " << this->playerList[maxPlayer]->name << endl;
     this->winner = maxPlayer;
@@ -444,7 +447,7 @@ void Game::playGame(){
             }
         }
         printAllCard();
-        if (round != this->round){
+        if (i < this->round){
             showWinner();
         }
         resetGame();
